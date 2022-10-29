@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R-P-S Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/e391ce7786.js" crossorigin="anonymous"></script>
+    <script src="app.js" defer></script>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url(https://t3.ftcdn.net/jpg/00/88/98/18/360_F_88981880_YjJManMJ6hJmKr5CZteFJAkEzXIh8mxW.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+    h1 {
+        font-family: sans-serif;
+        font-weight: 800;
+        margin: 15px 0;
+    }
+    
+    .container {
+        display: flex;
+    }
+    
+    .container .section {
+        width: 350px;
+        margin: 20px 50px;
+    }
+    
+    .section .info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 50px;
+    }
+    
+    .info span,
+    .info h3 {
+        font-size: 25px;
+        font-weight: bold;
+        margin: 0px 10px;
+        font-family: sans-serif;
+        color: white;
+    }
+    
+    .show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 220px;
+    }
+    
+    .show i {
+        font-size: 100px;
+        color: orange;
+    }
+    
+    h2 {
+        font-family: sans-serif;
+        font-weight: bold;
+        padding: 5px;
+    }
+    
+    .selection {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 350px;
+        height: 100px;
+    }
+    
+    .selection button {
+        margin: 0 20px;
+        padding: 25px;
+        border-radius: 50%;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-size: 33px;
+        color: coral;
+        background-color: darkgreen;
+    }
+</style>
+
+<body>
+    <h1>Rock Paper Scissors</h1>
+
+    <h2 id="demo1"></h2>
+    <!--  The Container  -->
+    <div class="container">
+        <!--   The first section     -->
+        <div class="section">
+            <div class="info">
+                <h3>You :</h3><span id="playerscore">0</span>
+            </div>
+            <div class="show">
+                <img id="image1" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzUycHQiIGhlaWdodD0iNzUycHQiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDc1MiA3NTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8Zz4KICA8cGF0aCBkPSJtMjg3LjIgNTgzLjE5aDE3Ny41OWMxNS42OTkgMCAzMC43NTgtNi4yMzQ0IDQxLjg1OS0xNy4zMzYgMTEuMTAyLTExLjEwMiAxNy4zNC0yNi4xNiAxNy4zNC00MS44NTl2LTI5LjU5OGMwLjAzMTI1LTQzLjA1MS0yMC44MjQtODMuNDM4LTU1Ljk0MS0xMDguMzMtMjUuNTU5IDIyLjEzNy01OC4yMzggMzQuMzI0LTkyLjA1NSAzNC4zMjQtMzMuODEyIDAtNjYuNDkyLTEyLjE4OC05Mi4wNTEtMzQuMzI0LTM1LjEyMSAyNC44OTUtNTUuOTc3IDY1LjI4MS01NS45NDEgMTA4LjMzdjI5LjU5OGMwIDE1LjY5OSA2LjIzODMgMzAuNzU4IDE3LjM0IDQxLjg1OSAxMS4xMDIgMTEuMTAyIDI2LjE1NiAxNy4zMzYgNDEuODU1IDE3LjMzNnoiLz4KICA8cGF0aCBkPSJtNDg3IDI3OS44YzAgNjEuMzAxLTQ5LjY5NSAxMTEtMTExIDExMXMtMTEwLjk5LTQ5LjY5NS0xMTAuOTktMTExYzAtNjEuMzAxIDQ5LjY5MS0xMTEgMTEwLjk5LTExMXMxMTEgNDkuNjk1IDExMSAxMTEiLz4KIDwvZz4KPC9zdmc+Cg=="
+                    alt="" height="200px">
+            </div>
+            <p id="p1"></p>
+        </div>
+        <!--   The second section     -->
+        <div class="section">
+            <div class="info">
+                <h3>Computer :</h3><span id="computerScore">0</span>
+            </div>
+            <div class="show computer">
+                <img id="image2" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iNzUycHQiIGhlaWdodD0iNzUycHQiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDc1MiA3NTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiA8cGF0aCBkPSJtMzM1LjkgNTE1LjA5djE3LjcwMy0wLjAwMzkwNmMwLjA1ODU5MyA5LjkwMjMtNC4yNSAxOS4zMjQtMTEuNzc3IDI1Ljc1NGwtMzEuNDA2IDI3LjMyNGgxNjYuNTlsLTMxLjQwNi0yNy4zMjRjLTcuNTMxMi02LjQyOTctMTEuODQtMTUuODUyLTExLjc3Ny0yNS43NTR2LTE3LjY5OXptMjY0LjQzLTY0LjE0OGgtNDQ4LjY2djMwYzAuMDExNzE5IDMuODc1IDEuNTU4NiA3LjU5MzggNC4yOTY5IDEwLjMzMiAyLjc0MjIgMi43NDIyIDYuNDU3IDQuMjg5MSAxMC4zMzYgNC4yOTY5aDQxOS4zOWMzLjg3NS0wLjAwNzgxMiA3LjU4OTgtMS41NTQ3IDEwLjMzMi00LjI5NjkgMi43NDIyLTIuNzM4MyA0LjI4OTEtNi40NTcgNC4yOTY5LTEwLjMzMnptLTQ0OC42Ni0xOS41MDhoNDQ4LjY2di0yNTAuNjVjLTAuMDA3ODEzLTMuODc4OS0xLjU1MDgtNy41OTc3LTQuMjkzLTEwLjM0NC0yLjc0MjItMi43NDYxLTYuNDU3LTQuMjkzLTEwLjMzNi00LjMwODZoLTQxOS4zOWMtMy44Nzg5IDAuMDE1NjI1LTcuNTk3NyAxLjU2MjUtMTAuMzQgNC4zMDg2LTIuNzM4MyAyLjc0NjEtNC4yODUyIDYuNDY0OC00LjI5MyAxMC4zNDR6IiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz4KPC9zdmc+Cg=="
+                    alt="" height="200px">
+            </div>
+            <p id="p2"></p>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6" id="win1" style="background-color: white; height: 50px; font-size: 40px; "></div>
+        <div class="col-sm-3"></div>
+
+
+    </div>
+    <h2 style="color: rgb(233, 33, 19);" id="demo2">Choose One !</h2>
+    <!-- This selection div contains the buttons   -->
+    <div class="selection">
+        <button onclick=" ro('0')" class="fas fa-hand-rock" id="rock"></button>
+        <button onclick=" ro('1')" class="fas fa-hand-paper" id="paper"></button>
+        <button onclick=" ro('2')" class="fas fa-hand-scissors" id="scissors"></button>
+    </div>
+    <button style="width: 100px; height: 30px;" onclick="reset()"> reset</button>
+
+</body>
+<script>
+    var usercount = 0
+    var syscount = 0
+
+    function ro(a) {
+        var b = (Math.floor(Math.random() * 3))
+
+
+
+
+        if (a == b) {
+            if (a == 0) {
+                document.getElementById("image1").src = "https://static.thenounproject.com/png/2600289-200.png"
+                document.getElementById("image2").src = " https://static.thenounproject.com/png/2600289-200.png"
+                document.getElementById("demo1").innerHTML = "tie"
+
+            } else if (a == 1) {
+                document.getElementById("image1").src = "https://clipartix.com/wp-content/uploads/2016/04/Paper-clip-clip-art-free-clipart-images-2-clipartcow-2.png "
+                document.getElementById("image2").src = "https://clipartix.com/wp-content/uploads/2016/04/Paper-clip-clip-art-free-clipart-images-2-clipartcow-2.png "
+                document.getElementById("demo1").innerHTML = "tie"
+
+            } else if (a == 2) {
+                document.getElementById("image1").src = "https://static.thenounproject.com/png/5246953-200.png"
+                document.getElementById("image2").src = "https://static.thenounproject.com/png/5246953-200.png"
+
+                document.getElementById("demo1").innerHTML = "tie"
+
+
+            }
+        } else if (a == 0 && b == 1) {
+            document.getElementById("image1").src = "https://static.thenounproject.com/png/2600289-200.png"
+            document.getElementById("image2").src = "https://clipartix.com/wp-content/uploads/2016/04/Paper-clip-clip-art-free-clipart-images-2-clipartcow-2.png "
+            document.getElementById("demo1").innerHTML = "system won"
+            syscount++
+            document.getElementById("computerScore").innerHTML = syscount
+        } else if (a == 0 && b == 2) {
+            document.getElementById("image1").src = "https://static.thenounproject.com/png/2600289-200.png"
+            document.getElementById("image2").src = " https://static.thenounproject.com/png/5246953-200.png"
+            document.getElementById("demo1").innerHTML = "you won"
+            usercount++
+            document.getElementById("playerscore").innerHTML = usercount
+        } else if (a == 1 && b == 2) {
+            document.getElementById("image1").src = " https://clipartix.com/wp-content/uploads/2016/04/Paper-clip-clip-art-free-clipart-images-2-clipartcow-2.png"
+            document.getElementById("image2").src = " https://static.thenounproject.com/png/5246953-200.png"
+
+            document.getElementById("demo1").innerHTML = "system won"
+            syscount++
+            document.getElementById("computerScore").innerHTML = syscount
+        } else if (a == 1 && b == 0) {
+            document.getElementById("image1").src = " https://clipartix.com/wp-content/uploads/2016/04/Paper-clip-clip-art-free-clipart-images-2-clipartcow-2.png"
+            document.getElementById("image2").src = " https://static.thenounproject.com/png/2600289-200.png"
+            document.getElementById("demo1").innerHTML = "you won"
+            usercount++
+            document.getElementById("playerscore").innerHTML = usercount
+
+        } else if (a == 2 && b == 0) {
+            document.getElementById("image1").src = " https://static.thenounproject.com/png/5246953-200.png"
+            document.getElementById("image2").src = " https://static.thenounproject.com/png/2600289-200.png"
+            document.getElementById("demo1").innerHTML = "system won"
+            syscount++
+
+            document.getElementById("computerScore").innerHTML = syscount
+        } else if (a == 2 && b == 1) {
+            document.getElementById("image1").src = " https://static.thenounproject.com/png/5246953-200.png"
+            document.getElementById("image2").src = " https://clipartix.com/wp-content/uploads/2016/04/Paper-clip-clip-art-free-clipart-images-2-clipartcow-2.png"
+            document.getElementById("demo1").innerHTML = "you won"
+            usercount++
+            document.getElementById("playerscore").innerHTML = usercount
+
+        }
+        if (usercount == 5) {
+
+            document.getElementById("win1").innerHTML = "YOU WON THE GAME"
+
+            var button1 = document.getElementById("rock")
+
+            button1.disabled = true;
+            var button2 = document.getElementById("paper")
+            button2.disabled = true;
+            var button3 = document.getElementById("scissors")
+            button3.disabled = true;
+            setTimeout(reload, 10000)
+        } else if (syscount == 5) {
+
+            document.getElementById("win1").innerHTML = "YOU LOSE THE GAME "
+
+            var button4 = document.getElementById("rock")
+            button4.disabled = true;
+            var button5 = document.getElementById("paper")
+            button5.disabled = true;
+            var button6 = document.getElementById("scissors")
+            button6.disabled = true;
+            setTimeout(reload, 10000)
+        }
+
+    }
+
+    function reset() {
+        location.reload();
+    }
+</script>
+
+</html>
